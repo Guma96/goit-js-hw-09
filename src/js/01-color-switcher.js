@@ -7,14 +7,16 @@ const colorChanger = {
 
   start() {
     this.change();
-    this.interval = setInterval(this.change, 1000);
+    this.interval = setInterval(this.change.bind(this), 1000);
   },
 
   stop() {
     clearInterval(this.interval);
+    startButton.disabled = false;
   },
 
   change() {
+    startButton.disabled = true;
     do {
       document.body.style.backgroundColor = getRandomHexColor();
     } while (this.currentColor === document.body.style.backgroundColor);
@@ -33,7 +35,6 @@ startButton.addEventListener('click', e => {
 });
 
 stopButton.addEventListener('click', () => {
-  startButton.disabled = false;
   colorChanger.stop();
 });
 
